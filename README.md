@@ -68,7 +68,21 @@ Metadado customizado utilizado para definir as taxas de juros por prazo (Termo) 
 
 ---
 
-## 4. Detalhamento do Screen Flow (`Revenda_de_Veiculos_Screen_Flow`)
+## 4. Decisão de Arquitetura Crucial: Fórmulas Reativas no Flow vs. Métodos Apex
+
+> [!IMPORTANT]
+> **Destaque de Design e Arquitetura: Utilização de Fórmulas no Flow em substituição às classes Apex `MargemAction` e `DescontoAction`**
+>
+> Originalmente, o escopo técnico do projeto previa a criação de classes invocáveis Apex para o cálculo da Margem Base (`MargemAction`) e do Desconto (`DescontoAction`). No entanto, esses cálculos foram implementados utilizando **Fórmulas Declarativas internas do Flow**, uma decisão justificada tecnicamente para garantir a **Reatividade na UI**.
+>
+> **Motivação Técnica:**
+> *   A invocação de métodos Apex a partir de um Screen Flow exige a transição de elementos no canvas (mudança de tela ou nó de ação intermediário). Isso inviabiliza a reatividade em tempo real na interface do usuário (UI).
+> *   Ao implementar os cálculos via Fórmulas do Flow, a interface recalcula instantaneamente o valor final com desconto ou a margem sugerida conforme o usuário digita nos campos da mesma tela (ex: alterando a porcentagem de desconto no input), sem a necessidade de clicar em avançar ou recuar.
+> *   Desta forma, os arquivos de classe `MargemAction.cls` e `DescontoAction.cls` tornaram-se desnecessários na org, mantendo o ecossistema de código limpo e oferecendo uma experiência de usuário (UX) moderna e sem latência.
+
+--- 
+
+## 5. Detalhamento do Screen Flow (`Revenda_de_Veiculos_Screen_Flow`)
 
 O Screen Flow é o orquestrador visual do projeto. Abaixo está o detalhamento de suas telas, campos de entrada e a lógica de banco de dados executada nos bastidores:
 
@@ -111,7 +125,7 @@ O Screen Flow é o orquestrador visual do projeto. Abaixo está o detalhamento d
 
 ---
 
-## 5. Mapeamento das Classes Apex Invocáveis
+## 6. Mapeamento das Classes Apex Invocáveis
 
 As classes Apex atuam como pontes lógicas chamadas de dentro do Flow. Elas utilizam assinaturas específicas com anotações `@InvocableMethod` e classes DTO internas anotadas com `@InvocableVariable`:
 
@@ -178,7 +192,7 @@ Invocada no estágio de definição financeira para obter o detalhamento de parc
 
 ---
 
-## 6. Lógica Interna das Classes Auxiliares Apex
+## 7. Lógica Interna das Classes Auxiliares Apex
 
 Abaixo está o detalhamento lógico das classes de suporte responsáveis pelas integrações de chamadas HTTP e cálculos financeiros (regras de taxas de juros e descontos).
 
@@ -220,7 +234,7 @@ Esta classe isola as fórmulas de cálculo e a lógica de verificação de regra
 
 ---
 
-## 7. Integração com a API FIPE: Evolução (v1 vs v2)
+## 8. Integração com a API FIPE: Evolução (v1 vs v2)
 
 O projeto contém duas implementações da API de consulta FIPE, evidenciando uma refatoração focada em robustez e qualidade de dados:
 
@@ -241,7 +255,7 @@ O projeto contém duas implementações da API de consulta FIPE, evidenciando um
 
 ---
 
-## 8. Regras de Negócio e Lógica Financeira
+## 9. Regras de Negócio e Lógica Financeira
 
 O sistema assegura a rentabilidade e a consistência das vendas por meio de regras aplicadas no Flow e no motor Apex de precificação (`PricingService.cls`):
 
@@ -281,7 +295,7 @@ Com base nos metadados ativos na organização, as taxas mensais aplicadas são 
 
 ---
 
-## 9. Mecanismo de Proteção e Bypass de Campos
+## 10. Mecanismo de Proteção e Bypass de Campos
 
 Uma das características técnicas mais importantes deste projeto é o controle contra edições indevidas diretamente na interface tradicional do Salesforce.
 
