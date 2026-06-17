@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Term 36</label>
+    <protected>false</protected>
+    <values>
+        <field>Level1Rate__c</field>
+        <value xsi:type="xsd:double">1.69</value>
+    </values>
+    <values>
+        <field>Level2Rate__c</field>
+        <value xsi:type="xsd:double">1.59</value>
+    </values>
+    <values>
+        <field>Term__c</field>
+        <value xsi:type="xsd:string">36</value>
+    </values>
+</CustomMetadata>
