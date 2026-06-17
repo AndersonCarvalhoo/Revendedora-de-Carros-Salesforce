@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllowFieldsUpdateBypass__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Campo Bypass para permitir a atualização de alguns campos apenas quando o valor do mesmo for true.</description>
+    <label>Allow Fields Update Bypass</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

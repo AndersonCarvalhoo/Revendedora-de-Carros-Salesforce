@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllowFieldsUpdateBypass__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Campo para controlar a permissão de edição dos campos através do flow.</description>
+    <label>Allow Fields Update Bypass</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
