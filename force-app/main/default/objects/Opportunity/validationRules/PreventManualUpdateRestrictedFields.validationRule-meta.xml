@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventManualUpdateRestrictedFields</fullName>
+    <active>true</active>
+    <description>Validation rule responsável por impedir o usuário de alterar os campos manualmente.</description>
+    <errorConditionFormula>AND(
+				AllowFieldsUpdateBypass__c  = false,
+				OR(
+				ISCHANGED( Amount ),
+				ISCHANGED( StageName ),
+			 ISCHANGED( PaymentType__c ),
+				ISCHANGED( DownPayment__c ),
+				ISCHANGED( FinancingTerm__c  )
+))</errorConditionFormula>
+    <errorMessage>Não é possível modificar esses campos manualmente, utilize o fluxo de venda.</errorMessage>
+</ValidationRule>

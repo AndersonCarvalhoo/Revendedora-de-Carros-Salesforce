@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BlockSalesPriceBelowFIPE</fullName>
+    <active>true</active>
+    <description>O Preço de Venda Proposto não pode ser inferior ao Preço de referência FIPE.</description>
+    <errorConditionFormula>ProposedSalePrice__c &lt;  FipeReferencePrice__c</errorConditionFormula>
+    <errorDisplayField>ProposedSalePrice__c</errorDisplayField>
+    <errorMessage>O valor não deve ser inferior ao Preço de referência FIPE</errorMessage>
+</ValidationRule>
