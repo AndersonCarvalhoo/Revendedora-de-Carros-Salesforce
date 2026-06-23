@@ -323,3 +323,28 @@ O projeto implementa regras de validação idênticas no objeto `Opportunity` e 
         1. Define `AllowFieldsUpdateBypass__c` como `True` na memória da Oportunidade ou do Veículo.
         2. Realiza a gravação (`Record Update`).
         3. Realiza uma segunda gravação definindo o campo novamente para `False` para fechar a janela de bypass e manter o banco seguro contra alterações manuais posteriores.
+
+## 11. Configurações de Acesso e Perfis (Segurança)
+
+Para que o processo de vendas funcione corretamente com as restrições e regras aplicadas, é necessário criar e configurar o Perfil do usuário e o conjunto de permissões (Permission Set) adequados:
+
+### A. Perfil Fictício: `Atendente de Vendas`
+Este perfil define a licença de acesso padrão do usuário na organização Salesforce:
+*   **Criação**: Clonado a partir do perfil padrão **Standard User** (Usuário Padrão).
+*   **Licença de Usuário**: **Salesforce** (exigido para conceder acesso padrão ao objeto Oportunidade e seus processos de venda).
+*   **Função**: Concede os acessos básicos de navegação e visualização padrão do Salesforce, mantendo as configurações específicas restritas ao Permission Set de governança.
+
+### B. Permission Set: `Gestão de Revenda de Carros`
+O arquivo de metadados correspondente no repositório é Gestao_de_Revenda_de_Carros.permissionset-meta.xml. Ele concede os acessos mínimos de segurança necessários para a execução pontual dos recursos do projeto:
+
+1.  **Acesso a Classes Apex:**
+    *   Autoriza a execução das classes invocáveis CarServiceV2 e FinanciamentoAction.
+2.  **Acesso à Credencial Externa (Named Credentials):**
+    *   Habilita as permissões aos Principals `BrasilApi-User_Principal` e `FipeAPI-User_Principal` para autorizar chamadas HTTP em lote do fluxo.
+3.  **Acesso ao Screen Flow:**
+    *   Permite a execução do fluxo Revenda_de_Veiculos_Screen_Flow diretamente na Lightning Page da Oportunidade.
+4.  **Acesso aos Objetos e Campos (FLS):**
+    *   *Veículo da Oportunidade (`OpportunityVehicle__c`)*: Permissões completas de Leitura, Criação, Edição e Exclusão (Read, Create, Edit, Delete).
+    *   *Segurança de Nível de Campo (FLS)*: Acesso de leitura e escrita para todos os campos customizados do projeto em `Opportunity`, `OpportunityVehicle__c` e `Product2` (incluindo o campo técnico `AllowFieldsUpdateBypass__c`, necessário para liberar temporariamente as validações transacionais).
+
+
